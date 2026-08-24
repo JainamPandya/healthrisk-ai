@@ -1,0 +1,15 @@
+pandas
+numpy
+scipy
+scikit-learn
+statsmodels
+matplotlib
+seaborn
+plotly
+xgboost
+lightgbm
+
+[dev]
+pytest
+pytest-cov
+jupyter
