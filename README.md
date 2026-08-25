@@ -1,5 +1,7 @@
 # HealthRisk AI
 
+![HealthRisk AI Web Dashboard](C:\Users\jaina\.gemini\antigravity-ide\brain\ec4250b8-0eb5-4679-bba3-63f4a45ae7b5\ui_dashboard_1787670429374.jpg)
+
 ## Overview
 HealthRisk AI is a machine-learning intelligence platform designed to predict early hospital readmission risks for patients. By analyzing patient demographics, medical history, lab procedures, and medications, the system estimates the probability of a patient being readmitted to the hospital within 30 days of discharge. 
 
@@ -64,12 +66,21 @@ python -m venv .venv
 pip install -e .
 ```
 
-**3. Run the API locally:**
+**3. Configure DVC Remote (Pending Official Credentials):**
+The dataset is tracked via DVC. Currently, the remote storage location is pending official Zetheta storage credentials. Once credentials are provided, configure the remote and push the data manually:
+```bash
+# Add the remote (e.g., S3 bucket)
+dvc remote add -d s3remote s3://zetheta-healthrisk-data/
+# Push the data to the remote
+dvc push
+```
+
+**4. Run the API locally:**
 ```powershell
 uvicorn healthrisk.api:app --reload
 ```
 
-**4. Run the automated test suite:**
+**5. Run the automated test suite:**
 ```powershell
 python -m pytest tests/ -v
 ```
@@ -149,6 +160,9 @@ Once the application (local or Docker) is running, you can access:
 ```
 
 ## Architecture
+
+![HealthRisk AI Architecture Diagram](C:\Users\jaina\.gemini\antigravity-ide\brain\ec4250b8-0eb5-4679-bba3-63f4a45ae7b5\architecture_diagram_1787670410436.jpg)
+
 See [Architecture Documentation](docs/architecture.md) for a detailed system diagram and data flow.
 
 ## Model Details

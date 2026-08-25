@@ -22,8 +22,10 @@ data/raw/
 
 # ML
 mlruns/
+mlflow.db
 *.pkl
 *.joblib
+*.pdf
 
 # DVC
 .dvc/cache/
@@ -46,3 +48,6 @@ htmlcov/
 
 # Packaging
 *.egg-info/
+
+# Docs
+docs/_build/

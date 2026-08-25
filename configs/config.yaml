@@ -1,0 +1,70 @@
+# HealthRisk AI — Master Configuration
+# All data source parameters, model hyperparameters, and API settings.
+
+data:
+  primary_dataset: "data/processing/cleaned_diabetic_data.csv"
+  target_column: "early_readmission"
+  test_size: 0.20
+  random_state: 42
+  diagnosis_columns:
+    - diag_1
+    - diag_2
+    - diag_3
+
+model:
+  lightgbm:
+    n_estimators: 300
+    max_depth: 7
+    learning_rate: 0.05
+    num_leaves: 31
+    min_child_samples: 50
+    subsample: 0.8
+    colsample_bytree: 0.8
+    scale_pos_weight: 1.5
+
+  xgboost:
+    n_estimators: 300
+    max_depth: 6
+    learning_rate: 0.05
+    min_child_weight: 50
+    subsample: 0.8
+    colsample_bytree: 0.7
+    objective: "binary:logistic"
+
+  threshold: 0.35
+
+ensemble:
+  meta_learner: "ridge"
+  alphas: [0.01, 0.1, 1.0, 10.0, 100.0]
+  n_folds: 5
+
+clinical_nlp:
+  model_name: "tfidf_lr"  # or "clinicalbert" when transformers available
+  max_features: 5000
+  ngram_range: [1, 2]
+  max_sequence_length: 512
+
+graph_network:
+  embedding_dimensions: 64
+  comorbidity_min_count: 5
+  gat_heads: 4
+  gat_layers: 3
+  dropout: 0.3
+
+survival:
+  penalizer: 0.01
+  duration_col: "time_in_hospital"
+  event_col: "early_readmission"
+
+api:
+  host: "0.0.0.0"
+  port: 8000
+  model_path: "models/healthrisk_lightgbm.joblib"
+
+mlflow:
+  tracking_uri: "sqlite:///mlflow.db"
+  experiment_name: "HealthRisk_Canonical_Training"
+
+docker:
+  image_name: "healthrisk-ai"
+  port: 8000

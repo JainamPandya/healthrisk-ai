@@ -1,3 +1,4 @@
+import warnings
 import pandas as pd
 
 from sklearn.model_selection import train_test_split
@@ -78,7 +79,11 @@ def main():
     )
 
     print("Training LightGBM on training subset (60%)...")
+    
     model.fit(X_train, y_train)
+    
+    # Extract Hyperparameters
+    classifier = model.named_steps["classifier"]
 
     print("\n===== THRESHOLD TUNING (VALIDATION SET - 20%) =====")
     val_probabilities = model.predict_proba(X_val)[:, 1]
@@ -101,11 +106,10 @@ def main():
     final_precision = precision_score(y_test, test_predictions, zero_division=0)
     final_recall = recall_score(y_test, test_predictions, zero_division=0)
     final_f1 = f1_score(y_test, test_predictions, zero_division=0)
-    
+
     print(f"Final Test Precision : {final_precision:.4f}")
     print(f"Final Test Recall    : {final_recall:.4f}")
     print(f"Final Test F1-Score  : {final_f1:.4f}")
-
 
 if __name__ == "__main__":
     main()

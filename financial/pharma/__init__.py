@@ -1,0 +1,1 @@
+"""Pharmaceutical equity analytics module."""

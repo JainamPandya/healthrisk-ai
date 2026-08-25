@@ -257,7 +257,7 @@ def generate_counterfactual(
                     }
 
         # No improvement found — stop.
-        if best_candidate_change is None:
+        if best_candidate_change is None or best_candidate_df is None:
             break
 
         # Accept the best single-feature change.
