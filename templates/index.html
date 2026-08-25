@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HealthRisk AI</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>HealthRisk AI</h1>
+        <p>Early Hospital Readmission Risk Prediction</p>
+    </header>
+
+
+    <form id="riskForm">
+
+        <!-- PATIENT INFORMATION -->
+
+        <section class="card">
+
+            <h2>Patient Information</h2>
+
+            <div class="grid">
+
+                <div>
+                    <label>Age</label>
+
+                    <select id="age">
+                        <option value="[0-10)">0-10</option>
+                        <option value="[10-20)">10-20</option>
+                        <option value="[20-30)">20-30</option>
+                        <option value="[30-40)">30-40</option>
+                        <option value="[40-50)">40-50</option>
+                        <option value="[50-60)">50-60</option>
+                        <option value="[60-70)">60-70</option>
+                        <option value="[70-80)">70-80</option>
+                        <option value="[80-90)">80-90</option>
+                        <option value="[90-100)">90-100</option>
+                    </select>
+                </div>
+
+
+                <div>
+                    <label>Gender</label>
+
+                    <select id="gender">
+                        <option>Female</option>
+                        <option>Male</option>
+                        <option>Unknown/Invalid</option>
+                    </select>
+                </div>
+
+
+                <div>
+                    <label>Race</label>
+
+                    <select id="race">
+                        <option>Caucasian</option>
+                        <option>AfricanAmerican</option>
+                        <option>Asian</option>
+                        <option>Hispanic</option>
+                        <option>Other</option>
+                        <option>?</option>
+                    </select>
+                </div>
+
+
+                <div>
+                    <label>Weight</label>
+
+                    <select id="weight">
+                        <option value="?">Not Available</option>
+                        <option>[0-25)">0-25</option>
+                        <option>[25-50)">25-50</option>
+                        <option>[50-75)">50-75</option>
+                        <option>[75-100)">75-100</option>
+                        <option>[100-125)">100-125</option>
+                        <option>[125-150)">125-150</option>
+                        <option>[150-175)">150-175</option>
+                        <option>[175-200)">175-200</option>
+                        <option>[200-250)">200-250</option>
+                    </select>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- HOSPITALIZATION -->
+
+        <section class="card">
+
+            <h2>Hospitalization</h2>
+
+            <div class="grid">
+
+                <div>
+                    <label>Admission Type</label>
+
+                    <select id="admission_type_id">
+                        <option value="1">Emergency</option>
+                        <option value="2">Urgent</option>
+                        <option value="3">Elective</option>
+                        <option value="4">Newborn</option>
+                        <option value="5">Not Available</option>
+                        <option value="6">Unknown</option>
+                        <option value="7">Trauma Center</option>
+                        <option value="8">Other</option>
+                    </select>
+                </div>
+
+
+                <div>
+                    <label>Discharge Disposition</label>
+
+                    <select id="discharge_disposition_id">
+                        <option value="1">Home</option>
+                        <option value="2">Short-term Hospital</option>
+                        <option value="3">Skilled Nursing Facility</option>
+                        <option value="4">Intermediate Care</option>
+                        <option value="6">Home with Home Health</option>
+                        <option value="11">Expired</option>
+                        <option value="22">Another Facility</option>
+                        <option value="23">Other</option>
+                    </select>
+                </div>
+
+
+                <div>
+                    <label>Admission Source</label>
+
+                    <select id="admission_source_id">
+                        <option value="1">Physician Referral</option>
+                        <option value="2">Clinic Referral</option>
+                        <option value="4">Transfer from Hospital</option>
+                        <option value="7">Emergency Room</option>
+                        <option value="8">Court/Law Enforcement</option>
+                        <option value="9">Other</option>
+                    </select>
+                </div>
+
+
+                <div>
+                    <label>Time in Hospital (days)</label>
+
+                    <input
+                        type="number"
+                        id="time_in_hospital"
+                        min="1"
+                        max="14"
+                        value="4"
+                    >
+                </div>
+
+
+                <div>
+                    <label>Medical Specialty</label>
+
+                    <input
+                        type="text"
+                        id="medical_specialty"
+                        value="?"
+                    >
+                </div>
+
+
+                <div>
+                    <label>Payer Code</label>
+
+                    <select id="payer_code">
+                        <option value="?">Not Available</option>
+                        <option>MC</option>
+                        <option>MD</option>
+                        <option>HM</option>
+                        <option>UN</option>
+                        <option>BC</option>
+                        <option>SP</option>
+                        <option>CP</option>
+                        <option>CM</option>
+                        <option>OG</option>
+                        <option>PO</option>
+                        <option>DM</option>
+                        <option>CH</option>
+                        <option>WC</option>
+                        <option>OT</option>
+                        <option>MP</option>
+                        <option>SI</option>
+                        <option>FR</option>
+                    </select>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- UTILIZATION -->
+
+        <section class="card">
+
+            <h2>Healthcare Utilization</h2>
+
+            <div class="grid">
+
+                <div>
+                    <label>Previous Inpatient Visits</label>
+
+                    <input
+                        type="number"
+                        id="number_inpatient"
+                        min="0"
+                        max="21"
+                        value="0"
+                    >
+                </div>
+
+
+                <div>
+                    <label>Emergency Visits</label>
+
+                    <input
+                        type="number"
+                        id="number_emergency"
+                        min="0"
+                        max="76"
+                        value="0"
+                    >
+                </div>
+
+
+                <div>
+                    <label>Outpatient Visits</label>
+
+                    <input
+                        type="number"
+                        id="number_outpatient"
+                        min="0"
+                        max="42"
+                        value="0"
+                    >
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CLINICAL INFORMATION -->
+
+        <section class="card">
+
+            <h2>Clinical Information</h2>
+
+            <div class="grid">
+
+                <div>
+                    <label>Lab Procedures</label>
+
+                    <input
+                        type="number"
+                        id="num_lab_procedures"
+                        min="1"
+                        max="132"
+                        value="40"
+                    >
+                </div>
+
+
+                <div>
+                    <label>Procedures</label>
+
+                    <input
+                        type="number"
+                        id="num_procedures"
+                        min="0"
+                        max="6"
+                        value="1"
+                    >
+                </div>
+
+
+                <div>
+                    <label>Number of Medications</label>
+
+                    <input
+                        type="number"
+                        id="num_medications"
+                        min="1"
+                        max="81"
+                        value="15"
+                    >
+                </div>
+
+
+                <div>
+                    <label>Number of Diagnoses</label>
+
+                    <input
+                        type="number"
+                        id="number_diagnoses"
+                        min="1"
+                        max="16"
+                        value="7"
+                    >
+                </div>
+
+
+                <div>
+                    <label>Primary Diagnosis</label>
+
+                    <input
+                        type="text"
+                        id="diag_1"
+                        value="?"
+                    >
+                </div>
+
+
+                <div>
+                    <label>Secondary Diagnosis</label>
+
+                    <input
+                        type="text"
+                        id="diag_2"
+                        value="?"
+                    >
+                </div>
+
+
+                <div>
+                    <label>Additional Diagnosis</label>
+
+                    <input
+                        type="text"
+                        id="diag_3"
+                        value="?"
+                    >
+                </div>
+
+
+                <div>
+                    <label>Max Glucose Serum</label>
+
+                    <select id="max_glu_serum">
+                        <option>None</option>
+                        <option>Norm</option>
+                        <option>>200</option>
+                        <option>>300</option>
+                    </select>
+                </div>
+
+
+                <div>
+                    <label>A1C Result</label>
+
+                    <select id="A1Cresult">
+                        <option>None</option>
+                        <option>Norm</option>
+                        <option>>7</option>
+                        <option>>8</option>
+                    </select>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- DIABETES MEDICATION -->
+
+        <section class="card">
+
+            <h2>Diabetes Treatment</h2>
+
+            <div class="grid">
+
+                <div>
+                    <label>Diabetes Medication</label>
+
+                    <select id="diabetesMed">
+                        <option>Yes</option>
+                        <option>No</option>
+                    </select>
+                </div>
+
+
+                <div>
+                    <label>Medication Change</label>
+
+                    <select id="change">
+                        <option>No</option>
+                        <option>Ch</option>
+                    </select>
+                </div>
+
+
+                <div>
+                    <label>Insulin</label>
+
+                    <select id="insulin">
+                        <option>No</option>
+                        <option>Up</option>
+                        <option>Down</option>
+                        <option>Steady</option>
+                    </select>
+                </div>
+
+
+                <div>
+                    <label>Metformin</label>
+
+                    <select id="metformin">
+                        <option>No</option>
+                        <option>Up</option>
+                        <option>Down</option>
+                        <option>Steady</option>
+                    </select>
+                </div>
+
+
+                <div>
+                    <label>Glipizide</label>
+
+                    <select id="glipizide">
+                        <option>No</option>
+                        <option>Up</option>
+                        <option>Down</option>
+                        <option>Steady</option>
+                    </select>
+                </div>
+
+
+                <div>
+                    <label>Glyburide</label>
+
+                    <select id="glyburide">
+                        <option>No</option>
+                        <option>Up</option>
+                        <option>Down</option>
+                        <option>Steady</option>
+                    </select>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <button type="submit">
+            Predict Readmission Risk
+        </button>
+
+    </form>
+
+
+    <!-- RESULT -->
+
+    <section
+        id="result"
+        class="card result hidden"
+    >
+
+        <h2>Risk Assessment</h2>
+
+        <div class="risk-score">
+            <span id="riskScore">--</span>
+        </div>
+
+        <div id="riskCategory">--</div>
+
+        <h3>Factors Increasing Risk</h3>
+
+        <ul id="increasingFactors"></ul>
+
+
+        <h3>Factors Decreasing Risk</h3>
+
+        <ul id="decreasingFactors"></ul>
+
+
+        <p>
+            This is a machine-learning risk estimate,
+            not a medical diagnosis.
+        </p>
+
+    </section>
+
+</div>
+
+
+<script src="/static/script.js"></script>
+
+</body>
+
+</html>

@@ -38,3 +38,11 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Testing & Coverage
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Packaging
+*.egg-info/

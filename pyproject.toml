@@ -14,6 +14,11 @@ dependencies = [
     "plotly",
     "xgboost",
     "lightgbm",
+    "fastapi",
+    "uvicorn",
+    "jinja2",
+    "shap",
+    "pydantic"
 ]
 
 [tool.setuptools]
@@ -32,3 +37,11 @@ dev = [
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
+addopts = [
+    "--cov=src/healthrisk",
+    "--cov-report=term-missing",
+    "--cov-report=html"
+]
+
+[tool.pyright]
+extraPaths = ["."]
